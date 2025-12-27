@@ -18,14 +18,20 @@ pygame.display.set_caption("Quick Math")
 # Clock
 clock = pygame.time.Clock()
 
+
 def draw_problem(screen, problem):
     problem_text = f"{problem.num1} {problem.operation} {problem.num2}"
     problem_surface = font.render(problem_text, True, 'Red')
     screen.blit(problem_surface, (350,200))
-
+    
+    
+    time_surface = font.render(str(problem.current_time), True, 'White')
+    screen.blit(time_surface, (10,10))
     for index, choice in enumerate(problem.choices):
         choice_surface = font.render(str(choice), True, 'Black')
         screen.blit(choice_surface, (350, 300+index * 50))
+
+    
 
 quick_problem = Problem(1,2,"+")
 quick_problem2 = Problem(random.randint(1,50),random.randint(1,50), random.choice(["+","-","/","*"]))
@@ -39,7 +45,7 @@ while True:
     # Fill background
     screen.fill((30, 30, 30))
     draw_problem(screen, quick_problem2)
-
+    quick_problem2.update_time()
     # Update Display
     pygame.display.flip()
 
